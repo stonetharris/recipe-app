@@ -1,4 +1,6 @@
-const API_KEY = process.env.SPOONACULAR_API_KEY;
+import {env} from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
+
+const API_KEY = env.SPOONACULAR_API_KEY;
 // const API_KEY = '-----put API key in here if below does not work------';
 const BASE_URL = 'https://api.spoonacular.com';
 

@@ -1,6 +1,6 @@
 import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
 
-const API_KEY = process.env.SPOONACULAR_API_KEY;
+const API_KEY = '4bb1916ca4a24970a838a8e55b08d758';
 const ingredient = 'olive oil';
 
 async function fetchRecipes() {
