@@ -11,7 +11,8 @@
   "dependencies": {
     "next": "14.2.2",
     "node-fetch": "^3.3.2",
-    "react": "^18",
+    "package-name": "^0.1.0",
+    "react": "^18.2.0",
     "react-dom": "^18",
     "styled-components": "^6.1.8",
     "use-client": "^1.2.0"
