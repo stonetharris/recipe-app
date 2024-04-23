@@ -1,6 +1,6 @@
-// src/SearchComponent.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const SearchComponent = () => {
     const [ingredients, setIngredients] = useState('');
@@ -39,7 +39,10 @@ const SearchComponent = () => {
                 <ul>
                     {recipes.map(recipe => (
                         <li key={recipe.id}>
-                            <h2>{recipe.title}</h2>
+                            {/* Wrap the title with a Link to direct to the details page */}
+                            <Link to={`/recipe/${recipe.id}`}>
+                                <h2>{recipe.title}</h2>
+                            </Link>
                             <img src={recipe.image} alt={recipe.title} width="200" />
                         </li>
                     ))}
