@@ -12,7 +12,7 @@ function App() {
     useEffect(() => {
         axios.get('https://api.spoonacular.com/recipes/random', {
             params: {
-                apiKey: '4bb1916ca4a24970a838a8e55b08d758',
+                apiKey: 'bf85634a3ac540ccbf7aba0397c11540',
                 number: 10
             }
         })

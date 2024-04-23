@@ -7,7 +7,7 @@ const SearchComponent = () => {
     const [recipes, setRecipes] = useState([]);
 
     const fetchRecipes = async () => {
-        const API_KEY = '4bb1916ca4a24970a838a8e55b08d758';
+        const API_KEY = 'bf85634a3ac540ccbf7aba0397c11540';
         const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(ingredients)}&number=10&apiKey=${API_KEY}`;
 
         try {
@@ -39,7 +39,6 @@ const SearchComponent = () => {
                 <ul>
                     {recipes.map(recipe => (
                         <li key={recipe.id}>
-                            {/* Wrap the title with a Link to direct to the details page */}
                             <Link to={`/recipe/${recipe.id}`}>
                                 <h2>{recipe.title}</h2>
                             </Link>

@@ -9,7 +9,7 @@ function RecipeDetails() {
     const [similarRecipes, setSimilarRecipes] = useState([]);
 
     useEffect(() => {
-        const apiKey = '4bb1916ca4a24970a838a8e55b08d758';
+        const apiKey = 'bf85634a3ac540ccbf7aba0397c11540';
         const fetchDetails = async () => {
             try {
                 // Fetching recipe details
@@ -27,23 +27,43 @@ function RecipeDetails() {
                 console.error('Error fetching data:', error);
             }
         };
-
         fetchDetails();
     }, [id]);
 
-    if (!recipe) return <div>Loading...</div>;
+    if (!recipe) return <div> What an amazing selection! Please be patient as we gather the details! </div>;
 
     return (
         <div>
             <h1>{recipe.title}</h1>
-            <img src={recipe.image} alt={recipe.title} style={{ width: '100%', maxHeight: '400px', objectFit: 'cover' }} />
+            <button style={{ margin: '10px 0' }}>Recipe Instructions</button>
+            <br></br>
+            <img src={recipe.image} alt={recipe.title} style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }} />
+            {recipe.winePairing && (
+                <div>
+                    <h3>Wine Pairing</h3>
+                    <p>{recipe.winePairing.pairingText}</p>
+                    {recipe.winePairing.productMatches && recipe.winePairing.productMatches.map(wine => (
+                        <div key={wine.id}>
+                            <h4>{wine.title}</h4>
+                            <p>{wine.description}</p>
+                        </div>
+                    ))}
+                </div>
+            )}
             <h2>Ingredients</h2>
             <ul>
                 {ingredients.map((ingredient, index) => (
                     <li key={index}>{ingredient.name} - {ingredient.amount.metric.value} {ingredient.amount.metric.unit}</li>
                 ))}
             </ul>
-            <button style={{ margin: '10px 0' }}>Recipe Instructions</button> {/* Here is the placeholder button */}
+            <h3>Dish Types</h3>
+            <p>{recipe.dishTypes.join(", ")}</p>
+            <h3>Cuisines</h3>
+            <p>{recipe.cuisines.join(", ")}</p>
+            <h3>Preparation Time</h3>
+            <p>{recipe.preparationMinutes} minutes</p>
+            <h3>Cooking Time</h3>
+            <p>{recipe.cookingMinutes} minutes</p>
             {similarRecipes.length > 0 && (
                 <div>
                     <h3>Similar Recipes</h3>
