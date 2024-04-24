@@ -2,6 +2,67 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import SearchHistory from './SearchHistory';
+import styled from 'styled-components';
+
+// Styled components
+const SearchContainer = styled.div`
+  position: relative;
+  margin: 20px auto;
+  max-width: 500px;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Input = styled.input`
+  font-size: 18px;
+  padding: 10px 15px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  &:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+`;
+
+const Button = styled.button`
+  font-size: 18px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const RecipeList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+`;
+
+const RecipeItem = styled.li`
+  margin-bottom: 10px;
+`;
+
+const RecipeTitle = styled.h2`
+  font-size: 1.2em;
+`;
+
+const RecipeImage = styled.img`
+  width: 100%;
+  max-width: 200px;
+  border-radius: 5px;
+`;
 
 const SearchComponent = ({ onSearchSubmit }) => {
     const [ingredients, setIngredients] = useState('');
@@ -38,9 +99,9 @@ const SearchComponent = ({ onSearchSubmit }) => {
     };
 
     return (
-        <div style={{ position: 'relative' }}>
-            <form onSubmit={handleSubmit}>
-                <input
+        <SearchContainer>
+            <Form onSubmit={handleSubmit}>
+                <Input
                     type="text"
                     value={ingredients}
                     onChange={e => setIngredients(e.target.value)}
@@ -48,22 +109,22 @@ const SearchComponent = ({ onSearchSubmit }) => {
                     onBlur={handleBlur}
                     placeholder="Enter ingredients separated by commas"
                 />
-                <button type="submit">Search</button>
-            </form>
+                <Button type="submit">Search</Button>
+            </Form>
             {showDropdown && <SearchHistory onSearchFromHistory={onSearchSubmit} />}
             {recipes.length > 0 && (
-                <ul>
+                <RecipeList>
                     {recipes.map(recipe => (
-                        <li key={recipe.id}>
+                        <RecipeItem key={recipe.id}>
                             <Link to={`/recipe/${recipe.id}`}>
-                                <h2>{recipe.title}</h2>
+                                <RecipeImage src={recipe.image} alt={recipe.title} />
+                                <RecipeTitle>{recipe.title}</RecipeTitle>
                             </Link>
-                            <img src={recipe.image} alt={recipe.title} width="200" />
-                        </li>
+                        </RecipeItem>
                     ))}
-                </ul>
+                </RecipeList>
             )}
-        </div>
+        </SearchContainer>
     );
 };
 
