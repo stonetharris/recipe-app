@@ -14,7 +14,7 @@ function App() {
     useEffect(() => {
         axios.get('https://api.spoonacular.com/recipes/random', {
             params: {
-                apiKey: '4bb1916ca4a24970a838a8e55b08d758',
+                apiKey: process.env.REACT_APP_SPOONACULAR_API_KEY,
                 number: 10
             }
         })
@@ -27,7 +27,7 @@ function App() {
     }, []);
 
     const fetchRecipes = useCallback(async (searchQuery) => {
-        const API_KEY = process.env.SPOONACULAR_API_KEY;
+        const API_KEY = process.env.REACT_APP_SPOONACULAR_API_KEY;
         const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(searchQuery)}&number=10&apiKey=${API_KEY}`;
 
         try {
@@ -41,7 +41,7 @@ function App() {
 
     const updateSearchHistoryAndSearch = (query) => {
         setSearchHistory(prevHistory => {
-            const updatedHistory = [...new Set([query, ...prevHistory])]; // Remove duplicates by using a Set
+            const updatedHistory = [...new Set([query, ...prevHistory])];
             localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
             console.log(updatedHistory);
             return updatedHistory;

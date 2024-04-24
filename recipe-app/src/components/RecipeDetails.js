@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
+import IngredientsChecklist from './Checklist';
 
 function RecipeDetails() {
     const { id } = useParams();
@@ -9,20 +10,20 @@ function RecipeDetails() {
     const [similarRecipes, setSimilarRecipes] = useState([]);
 
     useEffect(() => {
-        //const apiKey = 'bf85634a3ac540ccbf7aba0397c11540';
-        const apiKey = '7416d374345d46178dcde5b80f6e8ca4';
+        const API_KEY = process.env.REACT_APP_SPOONACULAR_API_KEY;
         const fetchDetails = async () => {
             try {
                 // Fetching recipe details
-                const detailsResponse = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`);
+                const detailsResponse = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`);
                 setRecipe(detailsResponse.data);
 
                 // Fetching ingredients
-                const ingredientsResponse = await axios.get(`https://api.spoonacular.com/recipes/${id}/ingredientWidget.json?apiKey=${apiKey}`);
-                setIngredients(ingredientsResponse.data.ingredients);
+                const ingredientsResponse = await axios.get(`https://api.spoonacular.com/recipes/${id}/ingredientWidget.json?apiKey=${API_KEY}`);
+                const formattedIngredients = ingredientsResponse.data.ingredients.map(ing => `${ing.name} - ${ing.amount.metric.value} ${ing.amount.metric.unit}`);
+                setIngredients(formattedIngredients);
 
                 // Fetching similar recipes
-                const similarResponse = await axios.get(`https://api.spoonacular.com/recipes/${id}/similar?apiKey=${apiKey}`);
+                const similarResponse = await axios.get(`https://api.spoonacular.com/recipes/${id}/similar?apiKey=${API_KEY}`);
                 setSimilarRecipes(similarResponse.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -31,7 +32,7 @@ function RecipeDetails() {
         fetchDetails();
     }, [id]);
 
-    if (!recipe) return <div> What an amazing selection! Please be patient as we gather the details! </div>;
+    if (!recipe) return <div> What an amazing selection... Please be patient as we gather the details! </div>;
 
     return (
         <div>
@@ -52,11 +53,7 @@ function RecipeDetails() {
                 </div>
             )}
             <h3>Ingredients</h3>
-            <ul>
-                {ingredients.map((ingredient, index) => (
-                    <li key={index}>{ingredient.name} - {ingredient.amount.metric.value} {ingredient.amount.metric.unit}</li>
-                ))}
-            </ul>
+            <IngredientsChecklist ingredients={ingredients} />
             <h3>Dish Types</h3>
             <p>{recipe.dishTypes.join(", ")}</p>
             <h3>Cuisines</h3>
