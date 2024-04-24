@@ -1,11 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
-<<<<<<< HEAD
 import IngredientsChecklist from './Checklist';
-=======
 import styled from 'styled-components';
->>>>>>> c3c194a (NavBar, about us, contact, styled components)
 
 const Container = styled.div`
   padding: 20px;
@@ -87,11 +84,8 @@ function RecipeDetails() {
     return (
         <div>
             <h1>{recipe.title}</h1>
-<<<<<<< HEAD
             <button style={{margin: '10px 0'}}>Recipe Instructions</button>
-=======
             <Button>Recipe styles</Button>
->>>>>>> c3c194a (NavBar, about us, contact, styled components)
             <br></br>
             <button onClick={toggleFavorite} style={{margin: '10px 0'}}>
                 {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}

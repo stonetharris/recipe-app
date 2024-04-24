@@ -3,16 +3,13 @@ import axios from 'axios';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import RecipeDetails from './components/RecipeDetails';
 import SearchComponent from './components/SearchComponent';
-<<<<<<< HEAD
 import SearchHistory from './components/SearchHistory';
 import Favorites from "./components/Favorites";
-=======
-import NavBar from './components/NavBar';  // Imported NavBar component
+import NavBar from './components/NavBar';
 import styled from 'styled-components';
 import About from "./components/About";
 import Contact from "./components/Contact";
 
-// Styled components
 const AppContainer = styled.div`
   text-align: center;
   font-family: 'Arial', sans-serif;
@@ -52,7 +49,6 @@ const MainHeading = styled.h1`
   margin-top: 0;
   padding-top: 20px;
 `;
->>>>>>> c3c194a (NavBar, about us, contact, styled components)
 
 function App() {
     const [recipes, setRecipes] = useState([]);
@@ -99,7 +95,6 @@ function App() {
     };
 
     return (
-<<<<<<< HEAD
         <div>
             <nav>
                 <Link to="/">
@@ -109,10 +104,8 @@ function App() {
                     <button>My Favorite Recipes</button>
                 </Link>
             </nav>
-=======
         <AppContainer>
             <NavBar />
->>>>>>> c3c194a (NavBar, about us, contact, styled components)
             {isHomepage && (
                 <>
                     <MainHeading>Random Recipes</MainHeading>
@@ -131,14 +124,12 @@ function App() {
             )}
             <Routes>
                 <Route path="/recipe/:id" element={<RecipeDetails/>}/>
-<<<<<<< HEAD
                 <Route path="/favorites" element={<Favorites/>}/>
-=======
                 <Route path="/about" element={<About/>}/>
                 <Route path="/contact" element={<Contact/>}/>
->>>>>>> c3c194a (NavBar, about us, contact, styled components)
             </Routes>
         </AppContainer>
+        </div>
     );
 }
 
