@@ -9,7 +9,7 @@ const SearchComponent = ({ onSearchSubmit }) => {
     const [showDropdown, setShowDropdown] = useState(false);
 
     const fetchRecipes = async () => {
-        const API_KEY = 'bf85634a3ac540ccbf7aba0397c11540';
+        const API_KEY = '4bb1916ca4a24970a838a8e55b08d758';
         const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(ingredients)}&number=10&apiKey=${API_KEY}`;
 
         try {
