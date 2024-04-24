@@ -1,8 +1,34 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
+<<<<<<< HEAD
 import IngredientsChecklist from './Checklist';
+=======
+import styled from 'styled-components';
+>>>>>>> c3c194a (NavBar, about us, contact, styled components)
 
+const Container = styled.div`
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+`;
+
+const Title = styled.h1`
+  color: #333;
+  text-align: center;
+`;
+
+const Button = styled.button`
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
 function RecipeDetails() {
     const { id } = useParams();
     const [recipe, setRecipe] = useState(null);
@@ -61,7 +87,11 @@ function RecipeDetails() {
     return (
         <div>
             <h1>{recipe.title}</h1>
+<<<<<<< HEAD
             <button style={{margin: '10px 0'}}>Recipe Instructions</button>
+=======
+            <Button>Recipe styles</Button>
+>>>>>>> c3c194a (NavBar, about us, contact, styled components)
             <br></br>
             <button onClick={toggleFavorite} style={{margin: '10px 0'}}>
                 {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
