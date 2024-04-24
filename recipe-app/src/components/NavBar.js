@@ -41,6 +41,7 @@ const NavBar = () => {
             <StyledLink to="/"><HomeButton>Home</HomeButton></StyledLink>
             <StyledLink to="/about">About</StyledLink>
             <StyledLink to="/contact">Contact</StyledLink>
+            <StyledLink to="/favorites">Favorites</StyledLink>
         </NavBarContainer>
     );
 };

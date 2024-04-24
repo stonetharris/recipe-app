@@ -96,14 +96,6 @@ function App() {
 
     return (
         <div>
-            <nav>
-                <Link to="/">
-                    <button>Home</button>
-                </Link>
-                <Link to="/favorites">
-                    <button>My Favorite Recipes</button>
-                </Link>
-            </nav>
         <AppContainer>
             <NavBar />
             {isHomepage && (
