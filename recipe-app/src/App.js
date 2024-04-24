@@ -27,7 +27,7 @@ function App() {
     }, []);
 
     const fetchRecipes = useCallback(async (searchQuery) => {
-        const API_KEY = '4bb1916ca4a24970a838a8e55b08d758';
+        const API_KEY = process.env.SPOONACULAR_API_KEY;
         const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(searchQuery)}&number=10&apiKey=${API_KEY}`;
 
         try {
