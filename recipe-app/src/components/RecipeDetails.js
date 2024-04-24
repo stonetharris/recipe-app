@@ -9,7 +9,8 @@ function RecipeDetails() {
     const [similarRecipes, setSimilarRecipes] = useState([]);
 
     useEffect(() => {
-        const apiKey = 'bf85634a3ac540ccbf7aba0397c11540';
+        //const apiKey = 'bf85634a3ac540ccbf7aba0397c11540';
+        const apiKey = '7416d374345d46178dcde5b80f6e8ca4';
         const fetchDetails = async () => {
             try {
                 // Fetching recipe details
@@ -44,13 +45,13 @@ function RecipeDetails() {
                     <p>{recipe.winePairing.pairingText}</p>
                     {recipe.winePairing.productMatches && recipe.winePairing.productMatches.map(wine => (
                         <div key={wine.id}>
-                            <h4>{wine.title}</h4>
+                            <h5>{wine.title}</h5>
                             <p>{wine.description}</p>
                         </div>
                     ))}
                 </div>
             )}
-            <h2>Ingredients</h2>
+            <h3>Ingredients</h3>
             <ul>
                 {ingredients.map((ingredient, index) => (
                     <li key={index}>{ingredient.name} - {ingredient.amount.metric.value} {ingredient.amount.metric.unit}</li>
