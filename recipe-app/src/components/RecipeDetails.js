@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import IngredientsChecklist from './Checklist';
@@ -8,9 +8,16 @@ function RecipeDetails() {
     const [recipe, setRecipe] = useState(null);
     const [ingredients, setIngredients] = useState([]);
     const [similarRecipes, setSimilarRecipes] = useState([]);
+    const [isFavorite, setIsFavorite] = useState(false);
+
+    const updateFavoriteStatus = useCallback(() => {
+        const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        setIsFavorite(storedFavorites.includes(id));
+    }, [id]);
 
     useEffect(() => {
         const API_KEY = process.env.REACT_APP_SPOONACULAR_API_KEY;
+
         const fetchDetails = async () => {
             try {
                 // Fetching recipe details
@@ -28,18 +35,44 @@ function RecipeDetails() {
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
+
+            updateFavoriteStatus();
         };
+
         fetchDetails();
-    }, [id]);
+    }, [id, updateFavoriteStatus]);
+
+
+    const toggleFavorite = useCallback(() => {
+        const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        if (isFavorite) {
+            const filteredFavorites = storedFavorites.filter(favId => favId !== id);
+            localStorage.setItem('favorites', JSON.stringify(filteredFavorites));
+            setIsFavorite(false);
+        } else {
+            storedFavorites.push(id);
+            localStorage.setItem('favorites', JSON.stringify(storedFavorites));
+            setIsFavorite(true);
+        }
+    }, [id, isFavorite]);
 
     if (!recipe) return <div> What an amazing selection... Please be patient as we gather the details! </div>;
 
     return (
         <div>
             <h1>{recipe.title}</h1>
-            <button style={{ margin: '10px 0' }}>Recipe Instructions</button>
+            <button style={{margin: '10px 0'}}>Recipe Instructions</button>
             <br></br>
-            <img src={recipe.image} alt={recipe.title} style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }} />
+            <button onClick={toggleFavorite} style={{margin: '10px 0'}}>
+                {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+            </button>
+            <br></br>
+            <img src={recipe.image} alt={recipe.title} style={{
+                maxWidth: '100%',
+                height: 'auto',
+                borderRadius: '8px',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+            }}/>
             {recipe.winePairing && (
                 <div>
                     <h3>Wine Pairing</h3>
@@ -53,7 +86,7 @@ function RecipeDetails() {
                 </div>
             )}
             <h3>Ingredients</h3>
-            <IngredientsChecklist ingredients={ingredients} />
+            <IngredientsChecklist ingredients={ingredients}/>
             <h3>Dish Types</h3>
             <p>{recipe.dishTypes.join(", ")}</p>
             <h3>Cuisines</h3>

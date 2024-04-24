@@ -4,6 +4,7 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import RecipeDetails from './components/RecipeDetails';
 import SearchComponent from './components/SearchComponent';
 import SearchHistory from './components/SearchHistory';
+import Favorites from "./components/Favorites";
 
 function App() {
     const [recipes, setRecipes] = useState([]);
@@ -55,6 +56,9 @@ function App() {
                 <Link to="/">
                     <button>Home</button>
                 </Link>
+                <Link to="/favorites">
+                    <button>My Favorite Recipes</button>
+                </Link>
             </nav>
             {isHomepage && (
                 <>
@@ -72,6 +76,7 @@ function App() {
             )}
             <Routes>
                 <Route path="/recipe/:id" element={<RecipeDetails/>}/>
+                <Route path="/favorites" element={<Favorites/>}/>
             </Routes>
         </div>
     );
