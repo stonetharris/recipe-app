@@ -3,17 +3,18 @@ import axios from 'axios';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import RecipeDetails from './components/RecipeDetails';
 import SearchComponent from './components/SearchComponent';
+import SearchHistory from './components/SearchHistory';
 
 function App() {
     const [recipes, setRecipes] = useState([]);
     const location = useLocation();
-    const [setSearchHistory] = useState([]);
+    const [searchHistory, setSearchHistory] = useState([]);
     const isHomepage = location.pathname === "/";
 
     useEffect(() => {
         axios.get('https://api.spoonacular.com/recipes/random', {
             params: {
-                apiKey: 'bf85634a3ac540ccbf7aba0397c11540',
+                apiKey: '4bb1916ca4a24970a838a8e55b08d758',
                 number: 10
             }
         })
@@ -26,7 +27,7 @@ function App() {
     }, []);
 
     const fetchRecipes = useCallback(async (searchQuery) => {
-        const API_KEY = 'bf85634a3ac540ccbf7aba0397c11540';
+        const API_KEY = process.env.SPOONACULAR_API_KEY;
         const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(searchQuery)}&number=10&apiKey=${API_KEY}`;
 
         try {
