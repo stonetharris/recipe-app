@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import IngredientsChecklist from './Checklist';
@@ -26,12 +26,14 @@ const Button = styled.button`
     background-color: #0056b3;
   }
 `;
+
 function RecipeDetails() {
     const { id } = useParams();
     const [recipe, setRecipe] = useState(null);
     const [ingredients, setIngredients] = useState([]);
     const [similarRecipes, setSimilarRecipes] = useState([]);
     const [isFavorite, setIsFavorite] = useState(false);
+    const audioRef = useRef(null);
 
     const updateFavoriteStatus = useCallback(() => {
         const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
@@ -43,18 +45,15 @@ function RecipeDetails() {
 
         const fetchDetails = async () => {
             try {
-                // Fetching recipe details
                 const detailsResponse = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`);
                 setRecipe(detailsResponse.data);
 
-                // Fetching ingredients
                 const ingredientsResponse = await axios.get(`https://api.spoonacular.com/recipes/${id}/ingredientWidget.json?apiKey=${API_KEY}`);
                 const formattedIngredients = ingredientsResponse.data.ingredients.map(ing => `${ing.name} - ${ing.amount.metric.value} ${ing.amount.metric.unit}`);
                 setIngredients(formattedIngredients);
 
-                // Fetching similar recipes
                 const similarResponse = await axios.get(`https://api.spoonacular.com/recipes/${id}/similar?apiKey=${API_KEY}`);
-                setSimilarRecipes(similarResponse.data);
+                setSimilarRecipes(similarResponse.data.slice(0, 5));
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -77,13 +76,18 @@ function RecipeDetails() {
             localStorage.setItem('favorites', JSON.stringify(storedFavorites));
             setIsFavorite(true);
         }
+
+        if (audioRef.current) {
+            audioRef.current.play();
+        }
     }, [id, isFavorite]);
 
-    if (!recipe) return <div> What an amazing selection... Please be patient as we gather the details! </div>;
+    if (!recipe) return <Container> Please be patient as we gather the details </Container>;
 
     return (
-        <div>
-            <h1>{recipe.title}</h1>
+        <Container>
+            <Title>{recipe.title}</Title>
+            <audio ref={audioRef} src="/davoodi.m4a" preload="auto"></audio>
             <button style={{margin: '10px 0'}}>Recipe Instructions</button>
             <Button>Recipe styles</Button>
             <br></br>
@@ -97,7 +101,15 @@ function RecipeDetails() {
                 borderRadius: '8px',
                 boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
             }}/>
-            {recipe.winePairing && (
+            <h3>Ingredients</h3>
+            <IngredientsChecklist ingredients={ingredients} />
+            {recipe.dishTypes.length > 0 && (
+                <>
+                    <h3>Dish Types</h3>
+                    <p>{recipe.dishTypes.join(", ")}</p>
+                </>
+            )}
+            {recipe.winePairing.length > 0 && (
                 <div>
                     <h3>Wine Pairing</h3>
                     <p>{recipe.winePairing.pairingText}</p>
@@ -109,20 +121,28 @@ function RecipeDetails() {
                     ))}
                 </div>
             )}
-            <h3>Ingredients</h3>
-            <IngredientsChecklist ingredients={ingredients}/>
-            <h3>Dish Types</h3>
-            <p>{recipe.dishTypes.join(", ")}</p>
-            <h3>Cuisines</h3>
-            <p>{recipe.cuisines.join(", ")}</p>
-            <h3>Preparation Time</h3>
-            <p>{recipe.preparationMinutes} minutes</p>
-            <h3>Cooking Time</h3>
-            <p>{recipe.cookingMinutes} minutes</p>
+            {recipe.cuisines.length > 0 && (
+                <>
+                    <h3>Cuisines</h3>
+                    <p>{recipe.cuisines.join(", ")}</p>
+                </>
+            )}
+            {recipe.preparationMinutes && (
+                <>
+                    <h3>Preparation Time</h3>
+                    <p>{recipe.preparationMinutes} minutes</p>
+                </>
+            )}
+            {recipe.cookingMinutes && (
+                <>
+                    <h3>Cooking Time</h3>
+                    <p>{recipe.cookingMinutes} minutes</p>
+                </>
+            )}
             {similarRecipes.length > 0 && (
                 <div>
                     <h3>Similar Recipes</h3>
-                    <ul>
+                    <ul style={{listStyleType: 'none', padding: 0}}>
                         {similarRecipes.map(similar => (
                             <li key={similar.id}>
                                 <Link to={`/recipe/${similar.id}`}>
@@ -133,7 +153,7 @@ function RecipeDetails() {
                     </ul>
                 </div>
             )}
-        </div>
+        </Container>
     );
 }
 

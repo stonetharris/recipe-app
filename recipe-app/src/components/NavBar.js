@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-// Styled components
 const NavBarContainer = styled.nav`
   background: #f8f9fa;
   padding: 20px; 

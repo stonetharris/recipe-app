@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import RecipeDetails from './components/RecipeDetails';
 import SearchComponent from './components/SearchComponent';
-import SearchHistory from './components/SearchHistory';
 import Favorites from "./components/Favorites";
 import NavBar from './components/NavBar';
 import styled from 'styled-components';
@@ -53,7 +52,6 @@ const MainHeading = styled.h1`
 function App() {
     const [recipes, setRecipes] = useState([]);
     const location = useLocation();
-    const [searchHistory, setSearchHistory] = useState([]);
     const isHomepage = location.pathname === "/";
 
     useEffect(() => {
@@ -74,7 +72,6 @@ function App() {
     const fetchRecipes = useCallback(async (searchQuery) => {
         const API_KEY = process.env.REACT_APP_SPOONACULAR_API_KEY;
         const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(searchQuery)}&number=10&apiKey=${API_KEY}`;
-
         try {
             const response = await axios.get(url);
             setRecipes(response.data);
@@ -85,12 +82,10 @@ function App() {
     }, []);
 
     const updateSearchHistoryAndSearch = (query) => {
-        setSearchHistory(prevHistory => {
-            const updatedHistory = [...new Set([query, ...prevHistory])];
-            localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
-            console.log(updatedHistory);
-            return updatedHistory;
-        });
+        let updatedHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+        updatedHistory = [...new Set([query, ...updatedHistory])];
+        localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+        console.log(updatedHistory);
         fetchRecipes(query);
     };
 

@@ -6,11 +6,9 @@ function FavoritesPage() {
     const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
     useEffect(() => {
-        const API_KEY = process.env.REACT_APP_SPOONACULAR_API_KEY;
-        const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
-        // Fetch the details for each favorite recipe by its ID
         const fetchFavoriteRecipes = async () => {
+            const API_KEY = process.env.REACT_APP_SPOONACULAR_API_KEY;
+            const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
             try {
                 const recipes = await Promise.all(
                     storedFavorites.map(id =>
@@ -24,9 +22,7 @@ function FavoritesPage() {
             }
         };
 
-        if (storedFavorites.length > 0) {
-            fetchFavoriteRecipes();
-        }
+        fetchFavoriteRecipes();
     }, []);
 
     return (

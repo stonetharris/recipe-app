@@ -7,7 +7,6 @@ const SearchHistoryComponent = ({ onSearchFromHistory  }) => {
         const history = localStorage.getItem('searchHistory');
         if (history) {
             setSearchHistory(JSON.parse(history));
-            // console.log("INSIDE USE EFFECT: ", history);
         }
     }, []);
 
