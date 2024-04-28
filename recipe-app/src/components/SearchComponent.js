@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import SearchHistory from './SearchHistory';
 import styled from 'styled-components';
 
-// Styled components
 const SearchContainer = styled.div`
   position: relative;
   margin: 20px auto;
@@ -13,7 +12,8 @@ const SearchContainer = styled.div`
 
 const Form = styled.form`
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  flex-direction: row;
   align-items: center;
 `;
 
@@ -23,8 +23,9 @@ const Input = styled.input`
   border: 2px solid #ddd;
   border-radius: 5px;
   margin-bottom: 10px;
-  width: 100%;
+  width: calc(100% - 120px);
   box-sizing: border-box;
+  margin-right: 10px;
   &:focus {
     border-color: #007bff;
     outline: none;
