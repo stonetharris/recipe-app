@@ -27,6 +27,27 @@ const Button = styled.button`
   }
 `;
 
+const Image = styled.img`
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-top: 20px;
+`;
+
+const List = styled.ul`
+  list-style-type: none;
+  padding: 0;
+`;
+
+const ListItem = styled.li`
+  margin: 10px 0;
+`;
+
+const Subtitle = styled.h3`
+  color: #333;
+`;
+
 function RecipeDetails() {
     const { id } = useParams();
     const [recipe, setRecipe] = useState(null);
@@ -103,13 +124,15 @@ function RecipeDetails() {
         <Container>
             <Title>{recipe.title}</Title>
             <audio ref={audioRef} src="/davoodi.m4a" preload="auto"></audio>
-            <button style={{margin: '10px 0'}}>Recipe Instructions</button>
+            {/*<button style={{margin: '10px 0'}}>Recipe Instructions</button>*/}
+            <Button>Recipe Instructions</Button>
             <Button>Recipe styles</Button>
             <br></br>
             <button onClick={toggleFavorite} style={{margin: '10px 0'}}>
                 {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
             </button>
             <br></br>
+
             <img src={recipe.image} alt={recipe.title} style={{
                 maxWidth: '100%',
                 height: 'auto',
@@ -121,6 +144,7 @@ function RecipeDetails() {
                                   onCheckChange={handleCheckChange}/>
 
             <button onClick={handleShoppingListCreation}>Create Shopping List</button>
+
             {recipe.dishTypes.length > 0 && (
                 <>
                     <h3>Dish Types</h3>
@@ -159,16 +183,14 @@ function RecipeDetails() {
             )}
             {similarRecipes.length > 0 && (
                 <div>
-                    <h3>Similar Recipes</h3>
-                    <ul style={{listStyleType: 'none', padding: 0}}>
+                    <Subtitle>Similar Recipes</Subtitle>
+                    <List>
                         {similarRecipes.map(similar => (
-                            <li key={similar.id}>
-                                <Link to={`/recipe/${similar.id}`}>
-                                    {similar.title}
-                                </Link>
-                            </li>
+                            <ListItem key={similar.id}>
+                                <Link to={`/recipe/${similar.id}`}>{similar.title}</Link>
+                            </ListItem>
                         ))}
-                    </ul>
+                    </List>
                 </div>
             )}
         </Container>

@@ -1,6 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+const FavoritesContainer = styled.div`
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+`;
+
+const FavoritesList = styled.ul`
+  list-style: none;
+  padding: 0;
+`;
+
+const FavoriteItem = styled.li`
+  margin: 10px 0;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #ff6347;
+  }
+`;
+const FavoriteLink = styled(Link)`
+  text-decoration: none;
+  color: #333;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const NoFavoritesText = styled.p`
+  color: #666;
+`;
 
 function FavoritesPage() {
     const [favoriteRecipes, setFavoriteRecipes] = useState([]);
@@ -26,20 +58,20 @@ function FavoritesPage() {
     }, []);
 
     return (
-        <div>
+        <FavoritesContainer>
             <h1>Favorite Recipes</h1>
             {favoriteRecipes.length > 0 ? (
-                <ul>
+                <FavoritesList>
                     {favoriteRecipes.map(recipe => (
-                        <li key={recipe.id}>
-                            <Link to={`/recipe/${recipe.id}`}>{recipe.title}</Link>
-                        </li>
+                        <FavoriteItem key={recipe.id}>
+                            <FavoriteLink to={`/recipe/${recipe.id}`}>{recipe.title}</FavoriteLink>
+                        </FavoriteItem>
                     ))}
-                </ul>
+                </FavoritesList>
             ) : (
-                <p>No favorites added yet.</p>
+                <NoFavoritesText>No favorites added yet.</NoFavoritesText>
             )}
-        </div>
+        </FavoritesContainer>
     );
 }
 
