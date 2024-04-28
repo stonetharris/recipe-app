@@ -41,6 +41,7 @@ const NavBar = () => {
             <StyledLink to="/about">About</StyledLink>
             <StyledLink to="/contact">Contact</StyledLink>
             <StyledLink to="/favorites">Favorites</StyledLink>
+            <StyledLink to={"/shopping-list"}>Shopping List</StyledLink>
         </NavBarContainer>
     );
 };

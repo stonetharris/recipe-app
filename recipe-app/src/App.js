@@ -8,6 +8,8 @@ import NavBar from './components/NavBar';
 import styled from 'styled-components';
 import About from "./components/About";
 import Contact from "./components/Contact";
+import ShoppingList from './components/ShoppingList';
+
 
 const AppContainer = styled.div`
   text-align: center;
@@ -114,6 +116,8 @@ function App() {
                 <Route path="/favorites" element={<Favorites/>}/>
                 <Route path="/about" element={<About/>}/>
                 <Route path="/contact" element={<Contact/>}/>
+                <Route path="/shopping-list" element={<ShoppingList/>}/>
+
             </Routes>
         </AppContainer>
         </div>

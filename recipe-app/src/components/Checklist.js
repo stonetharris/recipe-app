@@ -1,13 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-function IngredientsChecklist({ ingredients }) {
-    const [checkedItems, setCheckedItems] = useState(new Array(ingredients.length).fill(false));
+function IngredientsChecklist({ ingredients,checkedItems, onCheckChange }) {
 
-    const handleCheck = (index) => {
-        const updatedCheckedItems = [...checkedItems];
-        updatedCheckedItems[index] = !updatedCheckedItems[index];
-        setCheckedItems(updatedCheckedItems);
-    };
 
     return (
         <div>
@@ -17,7 +11,7 @@ function IngredientsChecklist({ ingredients }) {
                         type="checkbox"
                         id={`checkbox-${index}`}
                         checked={checkedItems[index]}
-                        onChange={() => handleCheck(index)}
+                        onChange={() => onCheckChange(index)}
                     />
                     <label htmlFor={`checkbox-${index}`}>{ingredient}</label>
                 </div>

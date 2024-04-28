@@ -34,6 +34,8 @@ function RecipeDetails() {
     const [similarRecipes, setSimilarRecipes] = useState([]);
     const [isFavorite, setIsFavorite] = useState(false);
     const audioRef = useRef(null);
+    const [checkedItems, setCheckedItems] = useState([]);
+
 
     const updateFavoriteStatus = useCallback(() => {
         const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
@@ -82,6 +84,19 @@ function RecipeDetails() {
         }
     }, [id, isFavorite]);
 
+    const handleCheckChange = (index) => {
+        const updatedCheckedItems = [...checkedItems];
+        updatedCheckedItems[index] = !updatedCheckedItems[index];
+        setCheckedItems(updatedCheckedItems);
+    };
+    const handleShoppingListCreation = () => {
+        const uncheckedIngredients = ingredients.filter((_, index) => !checkedItems[index]);
+        const existingShoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
+        const updatedShoppingList = [...new Set([...existingShoppingList, ...uncheckedIngredients])];
+        localStorage.setItem('shoppingList', JSON.stringify(updatedShoppingList));
+    };
+
+
     if (!recipe) return <Container> Please be patient as we gather the details </Container>;
 
     return (
@@ -102,7 +117,10 @@ function RecipeDetails() {
                 boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
             }}/>
             <h3>Ingredients</h3>
-            <IngredientsChecklist ingredients={ingredients} />
+            <IngredientsChecklist ingredients={ingredients} checkedItems={checkedItems}
+                                  onCheckChange={handleCheckChange}/>
+
+            <button onClick={handleShoppingListCreation}>Create Shopping List</button>
             {recipe.dishTypes.length > 0 && (
                 <>
                     <h3>Dish Types</h3>
