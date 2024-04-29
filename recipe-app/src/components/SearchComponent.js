@@ -1,9 +1,14 @@
+// Hi!, this is Stone Harris, and this is one of the two components I am responsible for
+// This component essentially uses the fetchRecipes() function that I wrote to use the
+// API to match recipes to the user's input of ingredients
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import SearchHistory from './SearchHistory';
 import styled from 'styled-components';
 
+// styled-components work:
 const SearchContainer = styled.div`
   position: relative;
   margin: 20px auto;
@@ -70,6 +75,7 @@ const SearchComponent = ({ onSearchSubmit }) => {
     const [recipes, setRecipes] = useState([]);
     const [showDropdown, setShowDropdown] = useState(false);
 
+    // this is the main function that drives the component. Simple API fetch just passing along the input ingredients (separated by comma)
     const fetchRecipes = async () => {
         const API_KEY = process.env.REACT_APP_SPOONACULAR_API_KEY;
         const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${encodeURIComponent(ingredients)}&number=10&apiKey=${API_KEY}`;
@@ -83,12 +89,15 @@ const SearchComponent = ({ onSearchSubmit }) => {
         }
     };
 
+    // straight forward handling of user clicking the search button
     const handleSubmit = (event) => {
         event.preventDefault();
         fetchRecipes();
         onSearchSubmit(ingredients);
     };
 
+    // this function and the handleBlur below it work in tandem in displaying the actual dropdown
+    // bar that holds search history (see SearchHistory.js for more detail)
     const handleFocus = () => {
         setShowDropdown(true);
         console.log("handleFocus set true");
@@ -99,6 +108,8 @@ const SearchComponent = ({ onSearchSubmit }) => {
         console.log("handleBlur set false");
     };
 
+    //the return is relatively simple i think, just the input with the search bar and
+    // then replicating app.js's logic for displaying results
     return (
         <SearchContainer>
             <Form onSubmit={handleSubmit}>

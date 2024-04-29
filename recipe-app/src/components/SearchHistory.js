@@ -1,6 +1,12 @@
+// Hi! This is Stone Harris and this is the second of two components that I am responsible for.
+// This component displays and styles the search history in the dropdown bar off of the input box
+// The actual storing of items into local storage actually occurs in app.js.
+//Here, we just style it and pull from local storage
+
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+//straight forward styled-components
 const HistoryDropdown = styled.ul`
   position: absolute;
   z-index: 1000;
@@ -33,6 +39,7 @@ const HistoryItem = styled.li`
 const SearchHistoryComponent = ({ onSearchFromHistory  }) => {
     const [searchHistory, setSearchHistory] = useState([]);
 
+    //grabbing past searches from local storage then parsing
     useEffect(() => {
         const history = localStorage.getItem('searchHistory');
         if (history) {
@@ -41,6 +48,7 @@ const SearchHistoryComponent = ({ onSearchFromHistory  }) => {
     }, []);
 
 
+    //very simple return, just displaying the dropdown and the parsed searches in it
     return (
         <HistoryDropdown>
             {searchHistory.map((query, index) => (

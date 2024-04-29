@@ -73,10 +73,9 @@ const Contact = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsSubmitted(true);
-        // Placeholder for form submission logic
         setTimeout(() => {
             navigate('/');
-        }, 1000); // Redirects after 2 seconds
+        }, 1000);
     };
 
     return (
