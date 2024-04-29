@@ -1,4 +1,4 @@
-// COMPLETED BY: Arnav Bhatia (1/4)
+// COMPLETED BY: Arnav Bhatia
 // This component maps all the ingredients for a specific recipe and assigns checkboxes
 // so it can be interactive with the user. It also adds some functionality to creating
 // the shopping list when needed
