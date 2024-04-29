@@ -1,3 +1,8 @@
+// COMPLETED BY: EVERYONE!
+// This was a team effort to make sure all pages are redirected to our individual
+// components using react-router-dom. The dynamic call to our API keys is in a .env.local
+// file so make sure you create a Spoonacular account (free) and set up your API key so
+// our code can dynamically make the call for you!
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
@@ -117,7 +122,6 @@ function App() {
                 <Route path="/about" element={<About/>}/>
                 <Route path="/contact" element={<Contact/>}/>
                 <Route path="/shopping-list" element={<ShoppingList/>}/>
-
             </Routes>
         </AppContainer>
         </div>

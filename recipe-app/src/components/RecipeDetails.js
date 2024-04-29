@@ -1,3 +1,10 @@
+// COMPLETED BY: Arnav Bhatia
+// This component is the most intricate one in this entire project. It uses multiple API calls
+// to get the information of a recipe when selected (whether it is a randomly generated one when
+// you first launch the App or if you utilize the Search Component developed by Stone). It redirects
+// the user to a new page that has all the details, like ingredients needed, cooking and preparation
+// time, wine pairing, cuisine type, and even similar recipes associated with the selected recipe!
+
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
@@ -25,14 +32,6 @@ const Button = styled.button`
   &:hover {
     background-color: #0056b3;
   }
-`;
-
-const Image = styled.img`
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  margin-top: 20px;
 `;
 
 const List = styled.ul`
@@ -124,7 +123,6 @@ function RecipeDetails() {
         <Container>
             <Title>{recipe.title}</Title>
             <audio ref={audioRef} src="/davoodi.m4a" preload="auto"></audio>
-            {/*<button style={{margin: '10px 0'}}>Recipe Instructions</button>*/}
             <Button>Recipe Instructions</Button>
             <Button>Recipe styles</Button>
             <br></br>

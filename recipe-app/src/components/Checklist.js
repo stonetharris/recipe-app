@@ -1,8 +1,11 @@
+// COMPLETED BY: Arnav Bhatia (1/4)
+// This component maps all the ingredients for a specific recipe and assigns checkboxes
+// so it can be interactive with the user. It also adds some functionality to creating
+// the shopping list when needed
+
 import React from 'react';
 
-function IngredientsChecklist({ ingredients,checkedItems, onCheckChange }) {
-
-
+function IngredientsChecklist({ ingredients, checkedItems, onCheckChange }) {
     return (
         <div>
             {ingredients.map((ingredient, index) => (

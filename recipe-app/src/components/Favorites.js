@@ -1,3 +1,10 @@
+// COMPLETED BY: Arnav Bhatia
+// This component allows the user to mark a recipe as a favorite if they enjoyed it!
+// There is a button that is always accessible for the user to navigate to his/her
+// favorite stored recipes in their localStorage.
+// Additionally, There is a small easter egg associated with this component that
+// can be found in the RecipeDetails.js (make sure your volume is high when you favorite a recipe!)
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';

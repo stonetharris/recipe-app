@@ -1,3 +1,7 @@
+// Freddy completed this component. It utilizes the RecipeDetails component and creates a shopping list
+// for all unchecked ingredients when a user to looking at a recipe. Then, one can access their list
+// by clicking the button at the top.
+
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 

@@ -1,3 +1,7 @@
+// Milan completed this component. It allows users to contact the creators of the web app if they have
+// any inquiries or concerns! A user can input their name, email, and a description which will be sent.
+// It has intricate handling cases if one of the fields is empty!
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';

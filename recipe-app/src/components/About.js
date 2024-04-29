@@ -1,3 +1,6 @@
+// Milan completed this component. It provides a description of our entire web app when a user clicks
+// the "About" button.
+
 import React from 'react';
 import styled from 'styled-components';
 

@@ -1,3 +1,6 @@
+// Milan completed this component. It utilizes the Link from react-router-dom and creates its own
+// custom styled link so it can be aesthetically pleaisng to our users!
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';

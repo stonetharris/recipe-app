@@ -1,7 +1,7 @@
 // Hi! This is Stone Harris and this is the second of two components that I am responsible for.
 // This component displays and styles the search history in the dropdown bar off of the input box
 // The actual storing of items into local storage actually occurs in app.js.
-//Here, we just style it and pull from local storage
+// Here, we just style it and pull from local storage
 
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
